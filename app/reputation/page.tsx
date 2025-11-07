@@ -1,10 +1,16 @@
+// This page is part of onboarding. 
+// When user completes the main action of the page (e.g., asks a question in Oracle),
+// it should mark the corresponding task as complete in OnboardingTasks.
+
 "use client";
 
 import React, { useState } from "react";
+import { useOnboarding } from "../../context/OnboardingContext";
 
 export default function ReputationPage() {
 	const [score, setScore] = useState<number | null>(null);
 	const [loading, setLoading] = useState(false);
+    const { completeTask } = useOnboarding();
 
 	function interpret(n: number) {
 		if (n >= 80) return "Excellent — trusted across the community.";
@@ -19,6 +25,9 @@ export default function ReputationPage() {
 		const val = Math.floor(Math.random() * 101);
 		setScore(val);
 		setLoading(false);
+
+		// onboarding: mark reputation checked
+		completeTask("check_reputation");
 	}
 
 	return (

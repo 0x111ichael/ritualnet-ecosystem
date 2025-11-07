@@ -1,20 +1,29 @@
+// This page is part of onboarding. 
+// When user completes the main action of the page (e.g., asks a question in Oracle),
+// it should mark the corresponding task as complete in OnboardingTasks.
+
 "use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
 import PromptInput from "../../components/PromptInput";
 import PromptOutput from "../../components/PromptOutput";
+import { useOnboarding } from "../../context/OnboardingContext";
 
 export default function GeneratorPage() {
 	const [imageSrc, setImageSrc] = useState<string | null>(null);
 	const [generatedText, setGeneratedText] = useState<string | null>(null);
 	const [minting, setMinting] = useState(false);
+    const { completeTask } = useOnboarding();
 
 	async function handleGenerate(prompt: string) {
 		// Simulate generation
 		await new Promise((r) => setTimeout(r, 800));
 		setGeneratedText(prompt);
 		setImageSrc("/file.svg");
+
+		// onboarding: mark generation task complete
+		completeTask("generate_nft");
 	}
 
 	async function handleMint() {

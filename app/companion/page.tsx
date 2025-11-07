@@ -1,8 +1,13 @@
+// This page is part of onboarding. 
+// When user completes the main action of the page (e.g., asks a question in Oracle),
+// it should mark the corresponding task as complete in OnboardingTasks.
+
 "use client";
 
 import React, { useState } from "react";
 import PromptInput from "../../components/PromptInput";
 import { ChatView } from "../../components/PromptOutput";
+import { useOnboarding } from "../../context/OnboardingContext";
 
 type Msg = { id: string; text: string; from: "me" | "them" };
 
@@ -11,6 +16,8 @@ export default function CompanionPage() {
 		{ id: "1", text: "Hey — I'm your companion. Ask me anything.", from: "them" },
 	]);
 
+    const { completeTask } = useOnboarding();
+
 	async function handleSend(text: string) {
 		const me: Msg = { id: String(Date.now()), text, from: "me" };
 		setMessages((s) => [...s, me]);
@@ -18,6 +25,9 @@ export default function CompanionPage() {
 		await new Promise((r) => setTimeout(r, 600));
 		const reply: Msg = { id: String(Date.now() + 1), text: `You said: ${text}`, from: "them" };
 		setMessages((s) => [...s, reply]);
+
+		// onboarding: mark companion used
+		completeTask("use_companion");
 	}
 
 	return (

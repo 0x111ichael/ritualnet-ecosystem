@@ -1,103 +1,137 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap');
-@import "tailwindcss";
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root {
-  --bg: #FAFAFA;
-  --text: #111111;
-  --subtext: #777777;
-  --accent: #5B4DF4;
-  --container-max: 700px;
+  --background: #FAFAFA;
+  --foreground: #111111;
+}
+
+:root[class~="dark"] {
+  --background: #111111;
+  --foreground: #FAFAFA;
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: var(--background);
+  color: var(--foreground);
   font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Layout helper: main container is centered with generous padding */
-.app-main {
-  max-width: var(--container-max);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 32px;
-  padding-bottom: 48px;
-}
+@layer components {
+  .app-main {
+    width: 100%;
+    padding: 1rem 1rem 2rem;
+  }
 
-/* Input styles */
-.prompt-input {
-  width: 100%;
-  border: 1px solid rgba(0,0,0,0.06);
-  background: white;
-  padding: 12px 14px;
-  border-radius: 8px;
-  font-family: inherit;
-  color: var(--text);
-}
+  .prompt-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    color: #111;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  :root[class~="dark"] .prompt-input {
+    background-color: #262626;
+    color: #FAFAFA;
+    border-color: rgba(255, 255, 255, 0.05);
+  }
 
-.prompt-textarea {
-  width: 100%;
-  min-height: 42px;
-  max-height: 160px;
-  resize: none;
-  overflow: auto;
-  border: none;
-  outline: none;
-  font-family: inherit;
-  font-size: 14px;
-}
+  .prompt-textarea {
+    width: 100%;
+    min-height: 42px;
+    max-height: 10rem;
+    resize: none;
+    overflow: auto;
+    border: none;
+    outline: none;
+    font-size: 0.875rem;
+    background-color: white;
+    color: #111;
+  }
+  :root[class~="dark"] .prompt-textarea {
+    background-color: #262626;
+    color: #FAFAFA;
+  }
 
-.send-button {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-weight: 600;
-}
+  .send-button {
+    background-color: #5B4DF4;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+  }
 
-.send-button[idle] { opacity: 1 }
-.send-button[thinking] { opacity: 0.9 }
-.send-button[done] { opacity: 0.8 }
+  .send-button[data-state="idle"] { opacity: 1; }
+  .send-button[data-state="thinking"] { opacity: 0.9; }
+  .send-button[data-state="done"] { opacity: 0.8; }
 
-/* Output styles */
-.output-block {
-  background: white;
-  border-radius: 10px;
-  padding: 16px;
-  margin-top: 16px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.03) inset;
-}
+  .output-block {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+  :root[class~="dark"] .output-block {
+    background-color: #262626;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
 
-.fade-in {
-  animation: fadeUp .28s ease both;
+  .fade-in {
+    animation: fadeUp 0.28s ease both;
+  }
+
+  .divider { 
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: 0.75rem 0;
+  }
+  :root[class~="dark"] .divider {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .chat-bubble {
+    background-color: white;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    max-width: 82%;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+  :root[class~="dark"] .chat-bubble {
+    background-color: #262626;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+
+  .bubble-me { margin-left: auto; }
+  .bubble-other { margin-right: auto; }
+
+  .score-pill { 
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #5B4DF4;
+  }
+
+  .muted { 
+    color: #737373;
+  }
+  :root[class~="dark"] .muted {
+    color: #a3a3a3;
+  }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0;
+    transform: translateY(0.375rem);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
-.divider { height: 1px; background: rgba(0,0,0,0.04); margin: 12px 0; }
-
-.subtext { color: var(--subtext); font-size: 13px }
-
-.chat-bubble {
-  background: #ffffff;
-  padding: 10px 12px;
-  border-radius: 10px;
-  max-width: 82%;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.03) inset;
-}
-
-.bubble-me { margin-left: auto; background: linear-gradient(180deg, #ffffff, #ffffff) }
-.bubble-other { margin-right: auto }
-
-.score-pill { font-size: 40px; font-weight: 600; color: var(--accent) }
-
-.muted { color: var(--subtext) }
-
