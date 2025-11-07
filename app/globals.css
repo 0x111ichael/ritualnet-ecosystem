@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg: #FAFAFA;
+  --text: #111111;
+  --subtext: #777777;
+  --accent: #5B4DF4;
+  --container-max: 700px;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout helper: main container is centered with generous padding */
+.app-main {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 32px;
+  padding-bottom: 48px;
+}
+
+/* Input styles */
+.prompt-input {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: white;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.prompt-textarea {
+  width: 100%;
+  min-height: 42px;
+  max-height: 160px;
+  resize: none;
+  overflow: auto;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.send-button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.send-button[idle] { opacity: 1 }
+.send-button[thinking] { opacity: 0.9 }
+.send-button[done] { opacity: 0.8 }
+
+/* Output styles */
+.output-block {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 16px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03) inset;
+}
+
+.fade-in {
+  animation: fadeUp .28s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.divider { height: 1px; background: rgba(0,0,0,0.04); margin: 12px 0; }
+
+.subtext { color: var(--subtext); font-size: 13px }
+
+.chat-bubble {
+  background: #ffffff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 82%;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03) inset;
+}
+
+.bubble-me { margin-left: auto; background: linear-gradient(180deg, #ffffff, #ffffff) }
+.bubble-other { margin-right: auto }
+
+.score-pill { font-size: 40px; font-weight: 600; color: var(--accent) }
+
+.muted { color: var(--subtext) }
+
