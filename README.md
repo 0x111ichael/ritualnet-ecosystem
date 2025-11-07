@@ -14,6 +14,8 @@ This README is intended to be updated frequently as new features are added. Use 
 - Next.js (App Router)
 - React + TypeScript
 - Tailwind CSS utilities
+- React Context for theme management
+- CSS Variables for dynamic theming
 
 ## Project structure (high level)
 - `app/`
@@ -27,7 +29,15 @@ This README is intended to be updated frequently as new features are added. Use 
 
 ## UI / Design notes
 - Typography: IBM Plex Mono (monospace primary)
-- Colors: background `#FAFAFA`, text `#111`, subtext `#777`, accent `#5B4DF4`
+- Colors:
+  - Light mode: background `#FAFAFA`, text `#111`
+  - Dark mode: background `#111`, text `#FAFAFA`
+  - Accent: `#5B4DF4` (consistent across themes)
+  - Neutrals: Using Tailwind's neutral scale for supporting elements
+- Theme System:
+  - Supports light/dark modes with system preference detection
+  - Persists user preference in localStorage
+  - Smooth transitions between themes
 - Layout: content constrained to `700px`, centered with generous padding
 - Input: auto-expanding textarea, Enter to send, Shift+Enter for newline
 - Output: fade-in animation, subtle dividers/shadows, no avatars or gradients
@@ -66,10 +76,8 @@ Example:
 
 ## Feature log
 - 2025-11-07 — Initial UI spec implemented: global styles, PromptInput, PromptOutput, and pages for oracle/companion/reputation/generator. (See `app/` and `components/`)
-
----
-
-If you want, I can also:
-- Add a `CHANGELOG.md` and append entries when we complete todos.
-- Add contribution guidelines for faster collaboration.
-- Add example screenshots and embed them here.
+- 2025-11-07 — Added dark mode support and theme system
+  - Files changed: `context/ThemeContext.tsx`, `app/globals.css`, `app/layout.tsx`, `tailwind.config.ts`
+  - Description: Implemented a complete theme system with dark/light mode support, system preference detection, and theme persistence. Updates the UI to support both themes with proper color transitions.
+  - Notes: Uses CSS variables for theming, Tailwind's darkMode: 'class' strategy, and localStorage for persistence
+  - Tests: Verify theme toggle, system preference sync, and persistence across page reloads
